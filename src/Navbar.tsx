@@ -8,18 +8,37 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
+import { Link } from "react-router-dom";
+import LogIn from "./components/LogIn";
 
 const Navbar = () => {
   return (
-    <NavigationMenu className="w-full justify-between px-16 fixed z-50 border-b-black border-b-[1px]">
+    <NavigationMenu className="w-full gap-[36vw] px-16 fixed z-50 border-b-black border-b-[1px] bg-white">
       <NavigationMenuList>
         <NavigationMenuItem className="font-bold text-4xl h-16 flex items-center">
-          <NavigationMenuLink>SIGREX</NavigationMenuLink>
+          <Link to="/">SIGREX</Link>
         </NavigationMenuItem>
       </NavigationMenuList>
-      <NavigationMenuList>
+      <NavigationMenuList className="flex gap-12">
+        <NavigationMenuItem className=" text-lg  w-max h-16 flex items-center">
+          <Link to="/">Accueil</Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem className=" text-lg  w-max h-16 flex items-center">
+          <Link to="/formations">Catalogue</Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem className=" text-lg  w-max h-16 flex items-center">
+          <Link to="/formateurs">Formateurs</Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem className=" text-lg w-max h-16 flex items-center">
+          <Link to="/about">À Propos</Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem className=" text-lg  w-max h-16 flex items-center">
+          <Link to="/contact">Contact</Link>
+        </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink>Accueil</NavigationMenuLink>
+          <NavigationMenuLink>
+            <LogIn />
+          </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
