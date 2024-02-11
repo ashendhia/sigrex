@@ -2,12 +2,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import accountSvg from "@/assets/account-svgrepo-com.svg";
 import { CircleUserRound } from "lucide-react";
 
 // import accountSvg from "@/assets/account-svgrepo-com.svg";
