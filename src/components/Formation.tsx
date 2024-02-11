@@ -1,5 +1,3 @@
-import React from "react";
-import Navbar from "../Navbar";
 import ListFormation from "./ListFormation";
 
 const Formation = () => {
