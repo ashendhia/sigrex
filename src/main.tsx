@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/formations" element={<Formations />} />
-      <Route path="/formations/formation" element={<Formation />} />
+      <Route path="/formations/:id" element={<Formation />} />
       <Route path="/formateurs" element={<Formateur />} />
 
       <Route path="/contact" element={<ContactUs />} />

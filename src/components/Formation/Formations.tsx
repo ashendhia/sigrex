@@ -3,7 +3,7 @@ import Navbar from "../Navbar";
 import ListFormation from "./ListFormation";
 import SideFilterBar from "./SideFilterBar";
 const Formations = () => {
-  const [FilterClicked, setFilterClicked] = useState("Elec");
+  const [FilterClicked, setFilterClicked] = useState([]);
   return (
     <div className="flex flex-row w-full h-full ">
       <SideFilterBar

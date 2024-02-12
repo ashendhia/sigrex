@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Chip } from "@mui/material";
+import { useNavigation } from "@react-navigation/native";
+
+import axios from "axios";
+
 import {
   Pagination,
   PaginationContent,
@@ -11,7 +15,42 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import FormationInfo from "./FormationInfo";
+import { Navigate } from "react-router-dom";
 const ListFormation = ({ FilterClicked, setFilterClicked }) => {
+  const handleNavigate = (formationId) => {
+    navigation.navigate(`formations/${formationId}`, { formationId });
+  };
+  const [Formation, setFormation] = useState([]);
+  useEffect(() => {
+    const fetchFormations = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/formation",
+          {
+            // params: {
+            //   page: 0,
+            // },
+          }
+        );
+        // Checking if the response status is OK (200)
+        if (response.status === 200) {
+          // Extracting data from the response
+          const data = await response.data;
+          // Updating state with the fetched data
+          setFormation(data);
+          // Logging the fetched data
+          console.log(data);
+        }
+      } catch (error) {
+        // Handling errors
+        console.error("Error fetching formations:", error);
+      }
+    };
+
+    // Calling the fetchFormations function when the component mounts
+    fetchFormations();
+  }, []);
+
   // const [currentPage, setCurrentPage] = useState(1);
   // const itemsPerPage = 12;
 
@@ -50,16 +89,34 @@ const ListFormation = ({ FilterClicked, setFilterClicked }) => {
 
       {/* !!!!!!!!!!!!!!!!!!! Liste des fomation  */}
       <h1 className="text-3xl">Liste des Formation</h1>
-      <Chip
-        label={FilterClicked ? FilterClicked : "hello"}
-        variant="outlined"
-        className="w-fit"
-      />
+      <div className="flex flex-row">
+        {" "}
+        {FilterClicked.map((filter, index) => (
+          <Chip
+            key={index}
+            label={filter}
+            variant="outlined"
+            className="w-fit"
+          />
+        ))}
+      </div>
+
       <div className="flex flex-row flex-wrap w-full justify-center  ">
-        <div className="w-72 h-fit mx-8 my-6">
-          <FormationInfo />
-        </div>
-        <div className="w-72 h-fit mx-8 my-6">
+        {console.log(FilterClicked)}
+        {Formation.map((formation) => (
+          <div
+            className="w-72 h-fit mx-8 my-6 cursor-pointer"
+            onClick={() => handleNavigate(formation.id)}>
+            <FormationInfo
+              ThemeDesignation={formation.theme.designation}
+              date={formation.dateDebut}
+              description={formation.description}
+              domaineName={formation.theme.domaine.designation}
+            />
+          </div>
+        ))}
+
+        {/* <div className="w-72 h-fit mx-8 my-6">
           <FormationInfo />
         </div>
 
@@ -74,7 +131,7 @@ const ListFormation = ({ FilterClicked, setFilterClicked }) => {
         </div>
         <div className="w-72 h-fit mx-8 my-6">
           <FormationInfo />
-        </div>
+        </div> */}
 
         {/* <div className='w-96 h-52 mx-8'>
       <FormationInfo/>

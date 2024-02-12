@@ -3,9 +3,29 @@ import Navbar from "../Navbar";
 import Footer from "../Footer";
 import Partenaire from "./Partenaire";
 import FormationPerDomaine from "../Formation/FormationPerDomaine";
+import axios from "axios";
 
 import Divider from "@mui/material/Divider";
+import { useEffect, useState } from "react";
 function App() {
+  const [Domaine, setDomaine] = useState([]);
+  useEffect(() => {
+    const fetchDomains = async () => {
+      try {
+        const result = await fetch(`http://localhost:5000/api/domaine`, {
+          method: "GET",
+          "Content-Type": "application/json",
+        });
+        if (result.ok) {
+          const data = await result.json();
+          setDomaine(data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchDomains();
+  }, []);
   return (
     <div>
       <Navbar />
@@ -36,13 +56,13 @@ function App() {
       <div className="px-10 w-full my-28">
         <h1 className="h1 my-3 ">Explore SIGREX</h1>
         <div className="flex flex-row flex-wrap w-full justify-between">
-          <FormationPerDomaine />
-          <FormationPerDomaine />
-          <FormationPerDomaine />
-          <FormationPerDomaine />
-          <FormationPerDomaine />
-          <FormationPerDomaine />
-          <FormationPerDomaine />
+          {console.log(Domaine)}
+          {Domaine.map((domaine) => (
+            <FormationPerDomaine
+              designation={Domaine.designation}
+              id={domaine.id}
+            />
+          ))}
         </div>
       </div>
       <Footer />

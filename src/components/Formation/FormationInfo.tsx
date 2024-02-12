@@ -1,6 +1,11 @@
 import React from "react";
 
-const FormationInfo = () => {
+const FormationInfo = ({
+  ThemeDesignation,
+  date,
+  description,
+  domaineName,
+}) => {
   return (
     <div className="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
       <div
@@ -18,18 +23,15 @@ const FormationInfo = () => {
       </div>
       <div className="p-6">
         <h5 className="mb-2 text-lg font-medium leading-tight text-neutral-600 ">
-          Nom de domaine
+          {domaineName}
         </h5>
         <h5 className="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-          Nom de formation{" "}
+          {ThemeDesignation}
         </h5>
         <p className="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+          {description}
         </p>
-        <p className="mb-4 text-base text-neutral-900">
-          Date de formation : 23 Janvier 2025
-        </p>
+        <p className="mb-4 text-base text-neutral-900">{date} </p>
 
         <button
           type="button"

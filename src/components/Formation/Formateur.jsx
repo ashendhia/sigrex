@@ -9,6 +9,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import axios from "axios";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -29,19 +30,40 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
-function createData(name, Diploma, Fonction, Status, sexe) {
-  return { name, Diploma, Fonction, Status, sexe };
-}
 
 const Formateur = () => {
+const [Formateur,setFormateur]= React.useState([])
+
+
+  React.useEffect(() => {
+    const fetchFormateurs = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/formateur",
+          {
+            // params: {
+            //   page: 0,
+            // },
+          }
+        );
+        // Checking if the response status is OK (200)
+        if (response.status === 200) {
+          // Extracting data from the response
+          const data = await response.data;
+          // Updating state with the fetched data
+          setFormateur(data);
+          // Logging the fetched data
+          console.log(data);
+        }
+      } catch (error) {
+        // Handling errors
+        console.error("Error fetching formations:", error);
+      }
+    };
+
+    // Calling the fetchFormations function when the component mounts
+    fetchFormateurs();
+  }, []);
   return (
     <div className="flex flex-col">
       <Navbar />
@@ -50,22 +72,22 @@ const Formateur = () => {
           <TableHead>
             <TableRow>
               <StyledTableCell>Name </StyledTableCell>
-              <StyledTableCell align="right">Diploma</StyledTableCell>
+              <StyledTableCell align="right">CV</StyledTableCell>
               <StyledTableCell align="right">Fonction</StyledTableCell>
               <StyledTableCell align="right">Status</StyledTableCell>
-              <StyledTableCell align="right">sexe</StyledTableCell>
+              <StyledTableCell align="right">Salaire</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {Formateur.map((row) => (
               <StyledTableRow key={row.name}>
                 <StyledTableCell component="th" scope="row">
-                  {row.name}
+                  {row.employeur}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.Diploma}</StyledTableCell>
-                <StyledTableCell align="right">{row.Fonction}</StyledTableCell>
-                <StyledTableCell align="right">{row.Status}</StyledTableCell>
-                <StyledTableCell align="right">{row.sexe}</StyledTableCell>
+                <StyledTableCell align="right">{row.cv}</StyledTableCell>
+                <StyledTableCell align="right">{row.fonction}</StyledTableCell>
+                <StyledTableCell align="right">{row.status}</StyledTableCell>
+                <StyledTableCell align="right">{row.salaire}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
